@@ -3,12 +3,13 @@ import { galleryItems } from "./gallery-items.js";
 // ------------------Const----------------------------------
 const galeryComponentRef = document.querySelector(".gallery");
 const addedGalleryCard = galleryCardsCreator(galleryItems);
+let instance = {};
 // ------------------functionCreator---------------------------
 function galleryCardsCreator(gallery) {
   return gallery
     .map(({ preview, description, original }) => {
       return `<div class="gallery__item">
-  <a class="gallery__link" href="${original}" data-lightbox="mygallery">
+  <a class="gallery__link"  href="${original}">
     <img
       class="gallery__image"
       src="${preview}"
@@ -22,16 +23,23 @@ function galleryCardsCreator(gallery) {
 }
 galeryComponentRef.insertAdjacentHTML("beforeend", addedGalleryCard);
 // ------------------functionClick---------------------------
-
-// -----------------------------------------------------------
-const galleryLink = document.querySelectorAll(".gallery__item .gallery__link");
-console.log(galleryLink);
-// -----------------------------------------------------------
-galeryComponentRef.addEventListener("click", onGalleryCardClick);
-
 function onGalleryCardClick(e) {
-  galleryLink.preventDefault();
-  //   e.preventDefault();
-  console.log(e.target.dataset.source);
-  console.log(e.currentTarget);
+  e.preventDefault();
+  if (!e.target.classList.contains("gallery__image")) {
+    return;
+  }
+  openModalWindow(e.target.dataset.source);
+}
+galeryComponentRef.addEventListener("click", onGalleryCardClick);
+// ------------------functionCreateModal---------------------------
+function createModalImg(pic) {
+  return basicLightbox.create(`
+    <img src="${pic}" width="800" height="600">
+`);
+}
+// ------------------functionOpenModal----------------------
+function openModalWindow(pic) {
+  instance = createModalImg(pic);
+  console.log(instance);
+  instance.show();
 }
