@@ -40,6 +40,23 @@ function createModalImg(pic) {
 // ------------------functionOpenModal----------------------
 function openModalWindow(pic) {
   instance = createModalImg(pic);
-  console.log(instance);
   instance.show();
+  document.addEventListener("keydown", pressEscapeInModal);
+  // document.addEventListener("click", klickInModal);
 }
+// ------------------functionRemoveAndExitModal----------------------
+function pressEscapeInModal(e) {
+  if (e.code === "Escape") {
+    instance.close();
+    document.removeEventListener("keydown", pressEscapeInModal);
+    // document.removeEventListener("click", klickInModal);
+  }
+}
+// function klickInModal(e) {
+//   console.log(e.target.classList.contains(".basicLightbox"));
+// console.log(e.currentTarget);
+// if (e.target.classlist.includes(".basicLightbox basicLightbox--img")) {
+
+// }
+// }
+// .classList.contains(".basicLightbox .basicLightbox--img")
