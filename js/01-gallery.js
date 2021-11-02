@@ -49,7 +49,6 @@ function pressEscapeInModal(e) {
   if (e.code !== "Escape") {
     return;
   }
-  console.log("213");
   instance.close();
   document.removeEventListener("keyup", pressEscapeInModal);
 }
