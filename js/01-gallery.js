@@ -41,22 +41,15 @@ function createModalImg(pic) {
 function openModalWindow(pic) {
   instance = createModalImg(pic);
   instance.show();
-  document.addEventListener("keydown", pressEscapeInModal);
+  document.addEventListener("keyup", pressEscapeInModal);
   // document.addEventListener("click", klickInModal);
 }
 // ------------------functionRemoveAndExitModal----------------------
 function pressEscapeInModal(e) {
-  if (e.code === "Escape") {
-    instance.close();
-    document.removeEventListener("keydown", pressEscapeInModal);
-    // document.removeEventListener("click", klickInModal);
+  if (e.code !== "Escape") {
+    return;
   }
+  console.log("213");
+  instance.close();
+  document.removeEventListener("keyup", pressEscapeInModal);
 }
-// function klickInModal(e) {
-//   console.log(e.target.classList.contains(".basicLightbox"));
-// console.log(e.currentTarget);
-// if (e.target.classlist.includes(".basicLightbox basicLightbox--img")) {
-
-// }
-// }
-// .classList.contains(".basicLightbox .basicLightbox--img")
